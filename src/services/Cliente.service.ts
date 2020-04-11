@@ -9,12 +9,21 @@ import { Cliente } from '../models/Cliente';
 
 export class ClienteService {
 
-    clienteDAO = new ClienteDAO();
+    clienteDAO = new ClienteDAO('Cliente');
 
     constructor() {}
 
-    getAll(req: Request, res: Response) {
-        res.send('Lalalala');
+    async getAll(req: Request, res: Response) {
+        try {
+            const page = Number(req.query.page);
+            const pageSize = Number(req.query.pageSize);
+
+            return new DefaultResponse().success(res, await this.clienteDAO.getPaginado(page, pageSize))
+
+        } catch(err) {
+            console.log(err);
+            return new DefaultResponse().error(res, err);
+        }
     }
 
     async create(req: Request, res: Response) {

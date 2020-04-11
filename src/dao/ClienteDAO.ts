@@ -1,9 +1,7 @@
 import { Cliente } from "../models/Cliente";
 import { getConnection } from "typeorm";
+import { get } from "https";
+import { DefaultDAO } from "./DefaultDAO";
 
-export class ClienteDAO {
-
-    async create(cliente: Cliente) {
-        return await getConnection().manager.save(cliente);
-    }
+export class ClienteDAO extends DefaultDAO<Cliente> {
 }

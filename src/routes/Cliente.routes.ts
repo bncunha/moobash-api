@@ -8,7 +8,7 @@ export class ClienteRoutes implements IRoutes {
     
     routes(router: Router): Router {
         const controller = new ClienteService();
-        router.get('/', controller.getAll);
+        router.get('/', controller.getAll.bind(controller));
         router.post('/', ClienteValidator.create(), controller.create.bind(controller));
         return router;
     }
