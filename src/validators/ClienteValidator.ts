@@ -12,8 +12,6 @@ export class ClienteValidator {
     }
 
     static update() {
-        return [...ClienteValidator.create(), ...[
-            param('id').notEmpty()
-        ]]
+        return ClienteValidator.create();
     }
 }

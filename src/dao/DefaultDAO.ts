@@ -24,9 +24,14 @@ export class DefaultDAO<Model> {
     }
 
     async findById(id: number): Promise<Model> {
-        const finded = await this.repository.findByIds([id]) as Model[];
-        return finded ? finded[0] : null;
-    } 
+        const finded = await this.repository.findOne(id) as Model;
+        return finded;
+    }
+
+    async deleteById(id: number) {
+        const finded = await this.findById(id);
+        return this.repository.remove(finded);
+    }
 
     get repository() {
         return getRepository(this.modelString)

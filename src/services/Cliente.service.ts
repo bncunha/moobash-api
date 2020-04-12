@@ -53,4 +53,17 @@ export class ClienteService {
             return new DefaultResponse().error(res, err);
         }
     }
+
+    async delete(req: Request, res: Response) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return new DefaultResponse().invalidParams(res, errors.array());
+        }
+        try {
+            return new DefaultResponse().success(res, await this.clienteDAO.deleteById(Number(req.params.id)));
+        } catch(err) {
+            console.log(err);
+            return new DefaultResponse().error(res, err);
+        }
+    }
 }
