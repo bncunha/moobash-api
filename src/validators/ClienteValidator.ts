@@ -1,4 +1,4 @@
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 
 export class ClienteValidator {
 
@@ -9,5 +9,11 @@ export class ClienteValidator {
             body('whatsapp').isLength({min: 8, max: 9}),
             body('email').isEmail()
         ]
+    }
+
+    static update() {
+        return [...ClienteValidator.create(), ...[
+            param('id').notEmpty()
+        ]]
     }
 }

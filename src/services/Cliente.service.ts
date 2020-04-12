@@ -17,9 +17,7 @@ export class ClienteService {
         try {
             const page = Number(req.query.page);
             const pageSize = Number(req.query.pageSize);
-
             return new DefaultResponse().success(res, await this.clienteDAO.getPaginado(page, pageSize))
-
         } catch(err) {
             console.log(err);
             return new DefaultResponse().error(res, err);
@@ -31,15 +29,28 @@ export class ClienteService {
         if (!errors.isEmpty()) {
             return new DefaultResponse().invalidParams(res, errors.array());
         }
-
         try {
             const clienteDTO: ClienteDTO = req.body;
             const cliente = Object.assign(new Cliente(), clienteDTO);
-            return new DefaultResponse().success(res, await this.clienteDAO.create(cliente));
+            return new DefaultResponse().success(res, await this.clienteDAO.save(cliente));
         } catch(err) {
             console.log(err);
             return new DefaultResponse().error(res, err);
         }
+    }
 
+    async update(req: Request, res: Response) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return new DefaultResponse().invalidParams(res, errors.array());
+        }
+        try {
+            const clienteDTO: ClienteDTO = req.body;
+            const cliente = Object.assign(await this.clienteDAO.findById(Number(req.params.id)), clienteDTO);
+            return new DefaultResponse().success(res, await this.clienteDAO.save(cliente));
+        } catch(err) {
+            console.log(err);
+            return new DefaultResponse().error(res, err);
+        }
     }
 }

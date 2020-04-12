@@ -9,7 +9,7 @@ export class DefaultDAO<Model> {
     }
     
 
-    async create(model: Model) {
+    async save(model: Model) {
         return this.repository.save(model);
     }
 
@@ -22,6 +22,11 @@ export class DefaultDAO<Model> {
         const total = await this.repository.count();
         return {itens: itens, total: total, page: page};
     }
+
+    async findById(id: number): Promise<Model> {
+        const finded = await this.repository.findByIds([id]) as Model[];
+        return finded ? finded[0] : null;
+    } 
 
     get repository() {
         return getRepository(this.modelString)
