@@ -1,12 +1,14 @@
 import { Router, Application } from "express";
 import { ClienteRoutes } from "./Cliente.routes";
+import { PedidoRoutes } from "./Pedido.routes";
 
-const router = Router();
 
 export class Routes {
 
     initRoutes(app: Application) {
         const clienteRoutes = new ClienteRoutes();
-        app.use('/clientes', clienteRoutes.routes(router));
+        const pedidoRoutes = new PedidoRoutes();
+        app.use('/clientes', clienteRoutes.routes());
+        app.use('/pedidos', pedidoRoutes.routes());
     }
 }

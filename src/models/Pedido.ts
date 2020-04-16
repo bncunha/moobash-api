@@ -16,9 +16,14 @@ export class Pedido {
     dataFinal: Date;
 
     @Column({nullable: true})
+    previsaoEntrega: Date;
+
+    @Column({nullable: true})
     dataAtualizacao: Date;
 
-    @Column()
+    @Column({
+        enum: ['PENDENTE', 'PROCESSANDO', 'CANCELADO', 'CONCLUIDO']
+    })
     status: string;
 
     @Column()

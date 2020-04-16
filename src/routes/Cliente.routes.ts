@@ -6,7 +6,8 @@ import { check, body, param } from "express-validator";
 
 export class ClienteRoutes implements IRoutes {
     
-    routes(router: Router): Router {
+    routes(): Router {
+        const router = Router();
         const controller = new ClienteService();
         router.get('/', controller.getAll.bind(controller));
         router.post('/', ClienteValidator.create(), controller.create.bind(controller));

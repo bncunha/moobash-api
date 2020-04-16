@@ -9,7 +9,7 @@ import { Cliente } from '../models/Cliente';
 
 export class ClienteService {
 
-    clienteDAO = new ClienteDAO('Cliente');
+    clienteDAO = new ClienteDAO();
 
     constructor() {}
 
