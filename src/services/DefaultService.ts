@@ -1,12 +1,13 @@
 import { DefaultDAO } from "../dao/DefaultDAO";
 import { Request, Response } from "express";
 import { DefaultResponse } from "../value-objects/DefaultResponse";
+import { PropriedadeSKU } from "../models/PropriedadeSKU";
 
 export abstract class DefaultService<Model> {
 
-    dao: DefaultDAO<Model>;
+    dao: DefaultDAO<Model> | any extends DefaultDAO<Model> ? any : undefined;
 
-    constructor(dao: DefaultDAO<Model>) {
+    constructor(dao: DefaultDAO<Model> | any extends DefaultDAO<Model> ? any : undefined) {
         this.dao = dao;
     }
 
