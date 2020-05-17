@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from "typeorm";
 import { PropriedadeSKU } from "./PropriedadeSKU";
 
 @Entity()
@@ -7,15 +7,19 @@ export class OpcaoPropriedadeSKU {
     idOpcaoPropriedadeSKU: number;
 
     @Column({
-        nullable: false
+        nullable: false,
+        unique: true
     })
     nomeOpcao: string;
 
     @Column({
-        nullable: false
+        nullable: false,
+        unique: true
     })
     codigoOpcao: string;
 
-    @OneToMany(type => PropriedadeSKU, prop => prop.opcoes)
+    @ManyToOne(type => PropriedadeSKU, prop => prop.opcoes, {
+        nullable: false
+    })
     propriedadeSKU: PropriedadeSKU;
 }

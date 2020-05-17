@@ -7,13 +7,13 @@ export class PropriedadeSKU {
     idPropriedadeSKU: number;
 
     @Column({
-        nullable: false
+        nullable: false,
+        unique: true
     })
     nomePropriedade: string;
 
     @Column({
         nullable: false,
-        length: 5,
         unique: true
     })
     codigoPropriedade: string;
