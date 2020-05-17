@@ -24,6 +24,9 @@ export class DefaultDAO<Model> {
     }
 
     async findById(id: number): Promise<Model> {
+        if (!id) {
+            return undefined;
+        }
         const finded = await this.repository.findOne(id) as Model;
         return finded;
     }

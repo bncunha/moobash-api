@@ -17,4 +17,14 @@ export class CodigoUtils {
         }
         return codigo;
     }
+
+    static gerarCodigoAleatorio(numeroCaracteres: number = 3) {
+        let text = "";
+        const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      
+        for (let i = 0; i < numeroCaracteres; i++) {
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }      
+        return text;
+    }
 }
