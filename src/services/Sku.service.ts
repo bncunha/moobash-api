@@ -23,7 +23,7 @@ export class SkuService extends DefaultService<Sku>{
 
     async create(req: Request, res: Response): Promise<DefaultResponse> {
         try {
-            return await this.save(req, res, new Produto());
+            return await this.save(req, res, new Sku());
         } catch(err) {
             console.log(err);
             return new DefaultResponse().error(res, err);
@@ -32,32 +32,36 @@ export class SkuService extends DefaultService<Sku>{
 
     async update(req: Request, res: Response): Promise<DefaultResponse> {
         try {
-            const produto = await this.dao.findById(req.params.id);
-            if (!produto) {
-                throw 'Produto não encontrado!'
+            const sku = await this.dao.findById(req.params.id);
+            if (!sku) {
+                throw 'Sku não encontrado!'
             }
-            return await this.save(req, res, produto);
+            return await this.save(req, res, sku);
         } catch(err) {
             console.log(err);
             return new DefaultResponse().error(res, err);
         }
     }
 
-    async save(req: Request, res: Response, p: Produto): Promise<DefaultResponse> {
-        throw 'aa';
-        // const errors = validationResult(req);
-        // if (!errors.isEmpty()) {
-        //     return new DefaultResponse().invalidParams(res, errors.array());
-        // }
-        // // const produtoDTO = req.body as ProdutoDTO;
-        // // produtoDTO.skus = produtoDTO.skus.map(sku => Object.assign(new Sku(), sku))
-        // const produto = Object.assign(p, produtoDTO);
-
-        // return new DefaultResponse().success(res, await this.dao.save(produto));
+    async save(req: Request, res: Response, s: Sku): Promise<DefaultResponse> {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return new DefaultResponse().invalidParams(res, errors.array());
+        }
+        const skuDTO = req.body as SkuDTO;
+        const produto = await this.produtoDAO.findById(skuDTO.idProduto);
+        if (!produto) {
+            throw 'Produto não encontrado';
+        }
+        const sku = await this.parseSkudtoToSku(skuDTO, s);
+        if (sku.preco == undefined) {
+            sku.preco = produto.precoPadrao;
+        }
+        return new DefaultResponse().success(res, await this.dao.save(sku));
     }
 
-    async parseSkudtoToSku(skuDTO: SkuDTO) {
-        const sku = Object.assign(new Sku(), skuDTO) as Sku;
+    async parseSkudtoToSku(skuDTO: SkuDTO, s = new Sku()) {
+        const sku = Object.assign(s, skuDTO) as Sku;
         const produto = await this.produtoDAO.findById(skuDTO.idProduto);
         if (!produto && skuDTO.idProduto) throw 'Produto não encontrado.';
         sku.opcoes = (await this.opcaoDAO.repository.findByIds(skuDTO.idOpcoes, {relations: ['propriedadeSKU']})).map(opcao => opcao) as OpcaoPropriedadeSKU[];
