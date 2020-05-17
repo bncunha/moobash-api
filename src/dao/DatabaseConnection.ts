@@ -5,13 +5,13 @@ export class DataBaseConnection {
     async initConnection() {
         try {
             const res = await createConnection({
-                url: process.env.BD_CON,
+                url: process.env.JAWSDB_URL,
                 type: "mysql",
                 // host: "localhost",
                 // port: 3306,
                 // username: "root",
                 // password: "123456",
-                // database: "bek_system_dev",
+                database: "pa2ul9jh0abo13ly",
                 entities: [
                     __dirname + "./../models/*.js"
                 ],

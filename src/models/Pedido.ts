@@ -23,6 +23,7 @@ export class Pedido {
     dataAtualizacao: Date;
 
     @Column({
+        type: 'enum',
         enum: ['PENDENTE', 'PROCESSANDO', 'CANCELADO', 'CONCLUIDO']
     })
     status: string;
