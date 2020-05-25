@@ -4,6 +4,8 @@ import { Routes } from './src/routes/routes';
 import { DataBaseConnection } from './src/dao/DatabaseConnection';
 import 'reflect-metadata';
 
+require('dotenv').config({path: __dirname + '/environments/.env'});
+
 const app: Application = express();
 app.use(express.json())
 
@@ -16,6 +18,6 @@ app.get('/teste', (req, res) => {
     res.send('Hello World!');
 });
 
-app.listen(process.env.PORT || 3000, () => {
-    console.log('App is listening on port: ' + process.env.PORT || 3000);
+app.listen(process.env.PORT || 8888, () => {
+    console.log('App is listening on port: ' + (process.env.PORT || 8888));
 });
