@@ -3,11 +3,13 @@ import express, { Application, Router } from 'express';
 import { Routes } from './src/routes/routes';
 import { DataBaseConnection } from './src/dao/DatabaseConnection';
 import 'reflect-metadata';
+import cors from 'cors';
 
 require('dotenv').config({path: __dirname + '/environments/.env'});
 
 const app: Application = express();
 app.use(express.json())
+app.use(cors())
 
 
 const routes = new Routes().initRoutes(app);

@@ -4,7 +4,17 @@ export class DataBaseConnection {
     con: any;
 
     async initConnection() {
-        if (process.env.ENV == 'develop') {
+        if (process.env.NODE_ENV == 'production') {
+            this.con = {
+                url: process.env.JAWSDB_URL,
+                type: "mysql",
+                database: process.env.JAWSDB_DATABSE,
+                entities: [
+                    __dirname + "./../models/*.js"
+                ],
+                synchronize: true,
+            }
+        } else {
             this.con = {
                 type: "mysql",
                 host: process.env.DATABASE_HOST,
@@ -12,16 +22,6 @@ export class DataBaseConnection {
                 username: process.env.DATABASE_USERNAME,
                 password: process.env.DATABASE_PASSWORD,
                 database: process.env.DATABASE_DATABASE,
-                entities: [
-                    __dirname + "./../models/*.js"
-                ],
-                synchronize: true,
-            }
-        } else if (process.env.ENV == 'prod') {
-            this.con = {
-                url: process.env.JAWSDB_URL,
-                type: "mysql",
-                database: "pa2ul9jh0abo13ly",
                 entities: [
                     __dirname + "./../models/*.js"
                 ],
