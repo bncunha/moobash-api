@@ -16,6 +16,16 @@ export class OpcaoPropriedadeSKUService extends DefaultService<OpcaoPropriedadeS
         super(new OpcaoPropriedadeSKUDAO());
     }
 
+    async getOpcoesByPropriedadeSku(req: Request, res: Response) {
+        try {
+            const idPropriedadeSku = req.params.idPropriedadeSKU;
+            return new DefaultResponse().success(res, await this.dao.findByPropriedadeID(idPropriedadeSku));
+        } catch(err) {
+            console.log(err);
+            return new DefaultResponse().error(res, err);
+        }
+    }
+
     async create(req: Request, res: Response): Promise<DefaultResponse> {
         try {
             return this.save(req, res, new OpcaoPropriedadeSKU());

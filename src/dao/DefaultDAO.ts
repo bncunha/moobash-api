@@ -13,10 +13,11 @@ export class DefaultDAO<Model> {
         return this.repository.save(model);
     }
 
-    async getPaginado(page: number, pageSize: number) {
+    async getPaginado(page: number, pageSize: number, where = {}) {
         const itens = await this.repository.find({
             take: pageSize,
-            skip: page-1
+            skip: page-1,
+            where: where
         });
 
         const total = await this.repository.count();

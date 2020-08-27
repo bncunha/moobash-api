@@ -9,6 +9,7 @@ export class OpcaoPropriedadeSKURoutes implements IRoutes {
         const router = Router();
         const controller = new OpcaoPropriedadeSKUService();
         router.get('/', controller.getPaginado.bind(controller));
+        router.get('/findByPropriedade/:idPropriedadeSKU', controller.getOpcoesByPropriedadeSku.bind(controller));
         router.post('/', OpcaoPropriedadeSKUValidator.create(), controller.create.bind(controller));
         router.put('/:id', OpcaoPropriedadeSKUValidator.update(), controller.update.bind(controller));
         router.delete('/:id', controller.delete.bind(controller));

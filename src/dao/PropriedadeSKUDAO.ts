@@ -13,6 +13,7 @@ export class PropriedadeSKUDAO extends DefaultDAO<PropriedadeSKU> {
                 codigoPropriedade: codigoProp
             }
         }) as PropriedadeSKU;
+        console.log(finded, codigoProp);
         return finded;
     }
 }

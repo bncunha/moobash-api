@@ -14,4 +14,13 @@ export class OpcaoPropriedadeSKUDAO extends DefaultDAO<OpcaoPropriedadeSKU> {
         }) as OpcaoPropriedadeSKU;
         return finded;
     }
+
+    async findByPropriedadeID(propriedadeID: string): Promise<OpcaoPropriedadeSKU[]> {
+        const finded = await this.repository.find({
+            where: {
+                propriedadeSKU: propriedadeID
+            }
+        }) as OpcaoPropriedadeSKU[];
+        return finded;
+    }
 }
