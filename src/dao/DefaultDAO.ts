@@ -24,11 +24,11 @@ export class DefaultDAO<Model> {
         return {itens: itens, total: total, page: page};
     }
 
-    async findById(id: number): Promise<Model> {
+    async findById(id: number, relations: string[] = []): Promise<Model> {
         if (!id) {
             return undefined;
         }
-        const finded = await this.repository.findOne(id) as Model;
+        const finded = await this.repository.findOne(id, {relations: relations}) as Model;
         return finded;
     }
 
