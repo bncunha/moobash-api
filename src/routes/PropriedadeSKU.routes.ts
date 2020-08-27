@@ -9,6 +9,7 @@ export class PropriedadeSKURoutes implements IRoutes {
         const router = Router();
         const controller = new PropriedadeSKUService();
         router.get('/', controller.getPaginado.bind(controller));
+        router.get('/:id', controller.findByID.bind(controller));
         router.post('/', PropriedadeSKUValidator.create(), controller.create.bind(controller));
         router.put('/:id', PropriedadeSKUValidator.update(), controller.update.bind(controller));
         router.delete('/:id', controller.delete.bind(controller));

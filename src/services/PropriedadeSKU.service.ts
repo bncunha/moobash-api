@@ -21,6 +21,10 @@ export class PropriedadeSKUService extends DefaultService<PropriedadeSKU>{
         }
     }
 
+    async findByID(req: Request, res: Response): Promise<DefaultResponse> {
+        return new DefaultResponse().success(res, await this.dao.findById(req.params.id, ['opcoes']));
+    }
+
     async update(req: Request, res: Response): Promise<DefaultResponse> {
         try {
             const propriedade = await this.dao.findById(req.params.id);

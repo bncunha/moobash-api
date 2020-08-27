@@ -25,6 +25,16 @@ export abstract class DefaultService<Model> {
         }
     }
 
+    async findByID(req: Request, res: Response, relations?: string[]) {
+        try {
+            console.log(this.dao)
+            return new DefaultResponse().success(res, await this.dao.findByID(req.params.id, relations))
+        } catch(err) {
+            console.log(err);
+            return new DefaultResponse().error(res, err);
+        }
+    }
+
     async delete(req: Request, res: Response) {
         try {
             return new DefaultResponse().success(res, await this.dao.deleteById(Number(req.params.id)));
